@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -72,3 +73,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 =======
 # hackathon
 >>>>>>> 2b79d24c6764466ef3f6143bbe31488aca8f73a8
+=======
+# hackathon
+This is the beginning version with Tailwind UI and animation features yet to be added.
+>>>>>>> fab98e0659745d48055810270102041b55d425f8
