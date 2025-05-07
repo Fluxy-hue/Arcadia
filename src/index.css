@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: glowing effect */
+.glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glow:hover {
+  transform: scale(1.05);
+}
+
