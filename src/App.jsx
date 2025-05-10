@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './components/ui/Card';
 import Button from './components/ui/button';
+import GoLive from './components/GoLive';
+import ThreadPost from './components/Threads';
 
 const games = [
   { id: 1, name: 'Game One', thumbnail: 'https://via.placeholder.com/300/FF5733' },
@@ -10,14 +12,12 @@ const games = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState('Home');
-
-  const tabs = ['Home', 'Video', 'Games', 'Thread'];
+  const [activeTab, setActiveTab] = useState('Go Live');
+  const tabs = ['Go Live', 'Games', 'Thread'];
 
   const getButtonColor = (tab) => {
     switch (tab) {
-      case 'Home': return 'bg-purple-600 hover:bg-purple-800';
-      case 'Video': return 'bg-red-600 hover:bg-red-800';
+      case 'Go Live': return 'bg-red-600 hover:bg-red-800';
       case 'Games': return 'bg-blue-600 hover:bg-blue-800';
       case 'Thread': return 'bg-orange-600 hover:bg-orange-800';
       default: return 'bg-gray-600 hover:bg-gray-800';
@@ -30,6 +30,38 @@ function App() {
     if (thumbnail.includes('3357FF')) return 'shadow-blue-500';
     if (thumbnail.includes('FF33A1')) return 'shadow-pink-500';
     return 'shadow-gray-500';
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'Games':
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-10">
+            {games.map((game) => (
+              <Card
+                key={game.id}
+                className={`hover:${getGlowColor(game.thumbnail)} transform hover:scale-105 transition duration-300 shadow-lg`}
+              >
+                <img src={game.thumbnail} alt={game.name} className="w-full h-48 object-cover" />
+                <div className="p-4 text-center">
+                  <h3 className="text-xl font-semibold text-white">{game.name}</h3>
+                </div>
+              </Card>
+            ))}
+          </div>
+        );
+      case 'Thread':
+        return (
+          <div className="p-10 text-center">
+            <h2 className="text-2xl font-bold mb-4">Write anything you want!</h2>
+            <ThreadPost />
+          </div>
+        );
+      case 'Go Live':
+        return <GoLive />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -50,30 +82,7 @@ function App() {
           </Button>
         ))}
       </div>
-
-      {activeTab === 'Games' ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-10">
-          {games.map((game) => (
-            <Card
-              key={game.id}
-              className={`hover:${getGlowColor(game.thumbnail)} transform hover:scale-105 transition duration-300 shadow-lg`}
-            >
-              <img
-                src={game.thumbnail}
-                alt={game.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold text-white">{game.name}</h3>
-              </div>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center text-3xl font-bold mt-20">
-          {activeTab} content coming soon!
-        </div>
-      )}
+      {renderContent()}
     </div>
   );
 }
