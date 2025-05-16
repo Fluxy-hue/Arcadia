@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Card from './components/ui/Card';
-import Button from './components/ui/button';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import GoLive from './components/GoLive';
 import ThreadPost from './components/Threads';
-
+import Card from './components/ui/Card';
+import Button from './components/ui/button';
+import EmulatorPage from './components/EmulatorPage';
 const games = [
-  { id: 1, name: 'Game One', thumbnail: 'https://via.placeholder.com/300/FF5733' },
-  { id: 2, name: 'Game Two', thumbnail: 'https://via.placeholder.com/300/33FF57' },
-  { id: 3, name: 'Game Three', thumbnail: 'https://via.placeholder.com/300/3357FF' },
-  { id: 4, name: 'Game Four', thumbnail: 'https://via.placeholder.com/300/FF33A1' },
+  {
+    id: 1,
+    name: 'Pokémon Fire Red',
+    thumbnail: 'https://i.ytimg.com/vi/5D8zEi5fxBg/maxresdefault.jpg',
+    route: '/emulator/pokemon-firered'
+  },
 ];
 
-function App() {
-  const [activeTab, setActiveTab] = useState('Go Live');
-  const tabs = ['Go Live', 'Games', 'Thread'];
-
-  const getButtonColor = (tab) => {
-    switch (tab) {
-      case 'Go Live': return 'bg-red-600 hover:bg-red-800';
-      case 'Games': return 'bg-blue-600 hover:bg-blue-800';
-      case 'Thread': return 'bg-orange-600 hover:bg-orange-800';
-      default: return 'bg-gray-600 hover:bg-gray-800';
-    }
-  };
-
-  const getGlowColor = (thumbnail) => {
-    if (thumbnail.includes('FF5733')) return 'shadow-orange-500';
-    if (thumbnail.includes('33FF57')) return 'shadow-green-500';
-    if (thumbnail.includes('3357FF')) return 'shadow-blue-500';
-    if (thumbnail.includes('FF33A1')) return 'shadow-pink-500';
-    return 'shadow-gray-500';
-  };
+const Home = () => {
+  const [activeTab, setActiveTab] = React.useState('Go Live');
+  const navigate = useNavigate();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -39,9 +25,15 @@ function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-10">
             {games.map((game) => (
               <Card
-                key={game.id}
-                className={`hover:${getGlowColor(game.thumbnail)} transform hover:scale-105 transition duration-300 shadow-lg`}
-              >
+  key={game.id}
+  onClick={() => {
+    
+    console.log('Navigating to:', game.route);
+    navigate(game.route);
+  }}
+  className="cursor-pointer hover:shadow-lg transform hover:scale-105 transition duration-300"
+>
+
                 <img src={game.thumbnail} alt={game.name} className="w-full h-48 object-cover" />
                 <div className="p-4 text-center">
                   <h3 className="text-xl font-semibold text-white">{game.name}</h3>
@@ -64,6 +56,8 @@ function App() {
     }
   };
 
+  const tabs = ['Go Live', 'Games', 'Thread'];
+
   return (
     <div
       className="min-h-screen bg-cover bg-center text-white"
@@ -74,7 +68,7 @@ function App() {
           <Button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`${getButtonColor(tab)} text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200 ${
+            className={`text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200 ${
               activeTab === tab ? 'ring-2 ring-white scale-105' : ''
             }`}
           >
@@ -84,6 +78,16 @@ function App() {
       </div>
       {renderContent()}
     </div>
+  );
+};
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/emulator/pokemon-firered" element={<EmulatorPage />} />
+      </Routes>
+    </Router>
   );
 }
 

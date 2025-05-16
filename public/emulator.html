@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pokémon Fire Red Emulator</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      height: 100%;
+      width: 100%;
+    }
+    #game {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <script>
+    var EJS_player = "#game";
+    var EJS_core = "gba";
+    var EJS_gameUrl = "/roms/pokemon_firered.gba";
+    var EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  </script>
+  <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+</body>
+</html>

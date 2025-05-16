@@ -1,8 +1,12 @@
-import React from 'react';
-
-const Card = ({ children, className }) => {
+const Card = ({ children, className = '', onClick }) => {
   return (
-    <div className={`rounded-lg overflow-hidden bg-white bg-opacity-10 backdrop-blur-md ${className}`}>
+    <div
+      className={`rounded-2xl bg-gray-800 shadow-lg overflow-hidden ${className}`}
+      onClick={onClick} 
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onClick && onClick()}
+    >
       {children}
     </div>
   );
